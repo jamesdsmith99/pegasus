@@ -9,10 +9,10 @@ class Discriminator(nn.Module):
 
         self.f = f
 
-        self.conv1 = HalfConvSpec(  3,   f, nn.ReLU())  # 32x32 -> 16x16
-        self.conv2 = HalfConvSpec(  f, 2*f, nn.ReLU())  # 16x16 -> 8x8
-        self.conv3 = HalfConvSpec(2*f, 4*f, nn.ReLU())  # 8x8 -> 4x4
-        self.conv4 = HalfConvSpec(4*f, 8*f, nn.ReLU())  # 4x4 -> 2x2
+        self.conv1 = HalfConvSpec(  3,   f, nn.LeakyReLU())  # 32x32 -> 16x16
+        self.conv2 = HalfConvSpec(  f, 2*f, nn.LeakyReLU())  # 16x16 -> 8x8
+        self.conv3 = HalfConvSpec(2*f, 4*f, nn.LeakyReLU())  # 8x8 -> 4x4
+        self.conv4 = HalfConvSpec(4*f, 8*f, nn.LeakyReLU())  # 4x4 -> 2x2
         self.conv5 = HalfConvSpec(8*f,   1, nn.Sigmoid()) # 2x2 -> 1x1
 
     def feature(self, x):
