@@ -13,7 +13,7 @@ class PingPongTrainer:
         which specify how long to train on a dataset. the trainer will train the discriminator on these datsets
         cycling around the schedule array for the time specified
     '''
-    def __init__(self, G, D, optimiser_G, optimiser_D, schedule, batch_size, num_iters, metric_logger=None, sample_logger=None):
+    def __init__(self, G, D, optimiser_G, optimiser_D, schedule, batch_size, num_iters, overtrain_D=1, metric_logger=None, sample_logger=None):
         self.G = G.to(DEVICE)
         self.D = D.to(DEVICE)
         self.optimiser_G = optimiser_G
@@ -22,6 +22,8 @@ class PingPongTrainer:
         self.batch_size = batch_size
 
         self.schedule = schedule
+
+        self.overtrain_D = overtrain_D
 
         self.log_metrics = metric_logger
         self.log_samples = sample_logger
@@ -76,7 +78,7 @@ class PingPongTrainer:
             
             for i in range(self.num_iters):
                 # overtrain discriminator
-                for k in range(5):
+                for k in range(self.overtrain_D):
                     self._train_D(current_schedule.data_loader)
 
                 # train generator
