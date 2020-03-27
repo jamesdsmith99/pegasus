@@ -43,12 +43,12 @@ class PingPongTrainer:
         fake = self.G(z)
 
         self.optimiser_D.zero_grad()
-        loss = discriminator_loss(self.D(real).mean(), self.D(fake).mean())
+        loss = discriminator_loss(self.D(real), self.D(fake))
                 
         loss.backward()
         self.optimiser_D.step()
 
-        self.G_loss_arr = np.append(self.G_loss_arr, loss.item())
+        self.D_loss_arr = np.append(self.D_loss_arr, loss.item())
 
     def _train_G(self):
         z = torch.randn(self.batch_size, 100, 1, 1).to(DEVICE)
@@ -57,12 +57,12 @@ class PingPongTrainer:
         self.gen = gen # save to a field to be accessed for logging
 
         self.optimiser_G.zero_grad()
-        loss = generator_loss(self.D(gen).mean())
+        loss = generator_loss(self.D(gen))
 
         loss.backward()
         self.optimiser_G.step()
 
-        self.D_loss_arr = np.append(self.D_loss_arr, loss.item())
+        self.G_loss_arr = np.append(self.G_loss_arr, loss.item())
     
     def train(self, epochs, base=0):
         epoch = base
