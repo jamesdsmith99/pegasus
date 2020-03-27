@@ -8,8 +8,8 @@ DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cp
 class GANTrainer:
 
     def __init__(self, G, D, optimiser_G, optimiser_D, data_loader, batch_size, num_iters, metric_logger=None, sample_logger=None):
-        self.G = G
-        self.D = D
+        self.G = G.to(DEVICE)
+        self.D = D.to(DEVICE)
         self.optimiser_G = optimiser_G
         self.optimiser_D = optimiser_D
         self.data_loader = data_loader
@@ -56,6 +56,10 @@ class GANTrainer:
         self.D_loss_arr = np.append(self.D_loss_arr, loss.item())
     
     def train(self, epochs, base=0):
+
+        self.G.train()
+        self.D.train()
+
         epoch = base
 
         while epoch < base + epochs:
