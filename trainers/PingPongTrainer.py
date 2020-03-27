@@ -14,8 +14,8 @@ class PingPongTrainer:
         cycling around the schedule array for the time specified
     '''
     def __init__(self, G, D, optimiser_G, optimiser_D, schedule, batch_size, num_iters, metric_logger=None, sample_logger=None):
-        self.G = G
-        self.D = D
+        self.G = G.to(DEVICE)
+        self.D = D.to(DEVICE)
         self.optimiser_G = optimiser_G
         self.optimiser_D = optimiser_D
         self.num_iters = num_iters
@@ -68,6 +68,9 @@ class PingPongTrainer:
         schedule_index = 0
         current_schedule = self.schedule[schedule_index]
         epochs_spent_on_schedule = 0
+
+        self.G.train()
+        self.D.train()
 
         while epoch < base + epochs:
             
