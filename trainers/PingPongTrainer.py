@@ -97,5 +97,5 @@ class PingPongTrainer:
 
             if epochs_spent_on_schedule == current_schedule.epochs:
                 epochs_spent_on_schedule = 0
-                schedule_index = (schedule_index + 1) % len(schedule_index)
+                schedule_index = (schedule_index + 1) % len(self.schedule)
                 current_schedule = self.schedule[schedule_index]
