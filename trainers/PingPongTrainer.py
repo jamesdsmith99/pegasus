@@ -36,8 +36,8 @@ class PingPongTrainer:
          load_model(state_path_G, self.G, self.optimiser_G)
          load_model(state_path_D, self.D, self.optimiser_D)
         
-    def _train_D(self, data_loader):
-        real = next(data_loader).to(DEVICE)
+    def _train_D(self, real):
+        real = real.to(DEVICE)
 
         z = torch.randn(self.batch_size, 100, 1, 1).to(DEVICE)
         fake = self.G(z)
@@ -82,10 +82,10 @@ class PingPongTrainer:
 
         while epoch < base + epochs:
             
-            for i in range(self.num_iters):
+            for i, data in enumerate(current_schedule.data_loader):
                 # overtrain discriminator
-                for k in range(self.overtrain_D):
-                    self._train_D(current_schedule.data_loader)
+                # for k in range(self.overtrain_D):
+                self._train_D(data)
 
                 # train generator
                 self._train_G()
