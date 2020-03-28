@@ -62,6 +62,20 @@ class DoubleConvTranspose(nn.Module):
         x = self.bn(x)
         return self.activation(x) 
 
+class DoubleConvTransposeNoPad(nn.Module):
+
+    def __init__(self, in_channels, out_channels, activation):
+        super(DoubleConvTransposeNoPad, self).__init__()
+
+        self.conv = nn.ConvTranspose2d(in_channels, out_channels, 4, 1, 0, bias=False)
+        self.bn = nn.BatchNorm2d(out_channels)
+        self.activation = activation
+
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        return self.activation(x) 
+
 class LinearBatchNorm(nn.Module):
 
     def __init__(self, in_features, out_features, activation):
