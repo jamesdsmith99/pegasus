@@ -29,6 +29,13 @@ def batch_images_wandb(batch, epoch):
         )
     }, step=epoch)
 
+def batch_images_wandb_dcgan_norm(batch, epoch):
+    wandb.log({
+        'Samples': wandb.Image(
+            to_image_grid((batch+1)/2)
+        )
+    }, step=epoch)
+
 def before_after_images_wandb(x, xHat, epoch):
     wandb.log({
         'Input': wandb.Image(
