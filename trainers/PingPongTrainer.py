@@ -43,7 +43,10 @@ class PingPongTrainer:
         fake = self.G(z)
 
         self.optimiser_D.zero_grad()
-        loss = discriminator_loss(self.D(real), self.D(fake))
+
+        D_real = self.D(real).view(-1)
+        D_fake = self.D(fake).view(-1)
+        loss = discriminator_loss(D_real, D_fake)
                 
         loss.backward()
         self.optimiser_D.step()
@@ -57,7 +60,9 @@ class PingPongTrainer:
         self.gen = gen # save to a field to be accessed for logging
 
         self.optimiser_G.zero_grad()
-        loss = generator_loss(self.D(gen))
+
+        discriminator_feedback = self.D(gen).view(-1)
+        loss = generator_loss(discriminator_feedback)
 
         loss.backward()
         self.optimiser_G.step()
