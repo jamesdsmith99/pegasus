@@ -11,7 +11,7 @@ class Generator(nn.Module):
         self.deconv2 = DoubleConvTranspose(8*f, 4*f, nn.LeakyReLU())  # 2x2 -> 4x4
         self.deconv3 = DoubleConvTranspose(4*f, 2*f, nn.LeakyReLU())  # 4x4 -> 8x8
         self.deconv4 = DoubleConvTranspose(2*f,   f, nn.LeakyReLU())  # 8x8 -> 16x16
-        self.deconv5 = DoubleConvTranspose(  f,   3, nn.Sigmoid()) # 16x16 -> 32x32
+        self.deconv5 = DoubleConvTranspose(  f,   3, nn.Tanh()) # 16x16 -> 32x32
 
     def forward(self, x):
         x = self.deconv1(x)
