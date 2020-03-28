@@ -1,5 +1,5 @@
 from torch import nn
-from .layers import HalfConvSpec, Swish
+from .layers import HalfConv, Swish
 
 
 class Discriminator(nn.Module):
