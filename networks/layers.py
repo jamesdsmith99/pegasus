@@ -39,10 +39,12 @@ class HalfConvSpec(nn.Module):
         self.conv = spectral_norm(
             nn.Conv2d(in_channels, out_channels, kernel_size=4, stride=2, padding=1, bias=False)
         )
+        self.bn = nn.BatchNorm2d(out_channels)
         self.activation = activation       
 
     def forward(self, x):
         x = self.conv(x)
+        x = self.bn(x)
         return self.activation(x)
 
 
