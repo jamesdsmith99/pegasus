@@ -46,9 +46,10 @@ class PingPongTrainer:
 
         D_real = self.D(real).view(-1)
         D_fake = self.D(fake).view(-1)
-        loss = discriminator_loss(D_real, D_fake)
+        loss_real, loss_fake = discriminator_loss(D_real, D_fake)
                 
-        loss.backward()
+        loss_real.backward()
+        loss_fake.backward()
         self.optimiser_D.step()
 
         self.D_loss_arr = np.append(self.D_loss_arr, loss.item())

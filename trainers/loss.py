@@ -22,7 +22,7 @@ def discriminator_loss(real, fake):
     loss_real = F.binary_cross_entropy(real, torch.ones_like(real).to(DEVICE))   # -log(real)
     loss_fake = F.binary_cross_entropy(fake, torch.zeros_like(fake).to(DEVICE))  # -log(1 - fake)
     # return (loss_real.mean() + loss_fake.mean()) / 2.0 # mean approximates 𝔼
-    return (loss_real + loss_fake) / 2.0 # mean approximates 𝔼
+    return loss_real, loss_fake
 
 '''
     given the discriminators output for the generated data calculate the generator loss
@@ -33,7 +33,7 @@ def discriminator_loss(real, fake):
 '''
 
 def generator_loss(fake):
-    return F.binary_cross_entropy(fake, torch.ones_like(fake).to(DEVICE)).mean() # 𝔼[-log(fake)]
+    return F.binary_cross_entropy(fake, torch.ones_like(fake).to(DEVICE)) # 𝔼[-log(fake)]
 
 '''
     calculate the KL divergence between the normal distribution paramaterised by μ and log_var
