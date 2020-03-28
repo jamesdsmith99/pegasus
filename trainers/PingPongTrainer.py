@@ -52,7 +52,7 @@ class PingPongTrainer:
         loss_fake.backward()
         self.optimiser_D.step()
 
-        self.D_loss_arr = np.append(self.D_loss_arr, loss.item())
+        self.D_loss_arr = np.append(self.D_loss_arr, (loss_real + loss_fake).item())
 
     def _train_G(self):
         z = torch.randn(self.batch_size, 100, 1, 1).to(DEVICE)
