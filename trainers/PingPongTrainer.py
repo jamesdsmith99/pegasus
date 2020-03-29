@@ -82,10 +82,11 @@ class PingPongTrainer:
 
         while epoch < base + epochs:
             
-            for i, data in enumerate(current_schedule.data_loader):
+            for step in range(self.num_iters):
                 # overtrain discriminator
-                # for k in range(self.overtrain_D):
-                self._train_D(data)
+                for k in range(self.overtrain_D):
+                    data = next(current_schedule.data_loader)
+                    self._train_D(data)
 
                 # train generator
                 self._train_G()
