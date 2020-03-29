@@ -7,11 +7,11 @@ class Encoder(nn.Module):
     def __init__(self, image_channels, hidden_size, intermediate_size=128, f=16):
         super(Encoder, self).__init__()
 
-        self.conv1 = Conv(image_channels, f, Swish())            # 32x32 -> 32x32
-        self.conv2 = HalfConv(  f, 2*f, Swish())    # 32x32 -> 16x16
-        self.conv3 = HalfConv(2*f, 4*f, Swish())    # 16x16 -> 8x8
-        self.conv4 = HalfConv(4*f, 8*f, Swish())    #   8x8 -> 4x4
-        self.conv5 = HalfConv(8*f,16*f, Swish())    #   4x4 -> 2x2
+        self.conv1 = Conv(image_channels, f, Swish())                                            # 32x32 -> 32x32
+        self.conv2 = HalfConv(  f, 2*f, spec_norm=False, batch_norm=True, activation=Swish())    # 32x32 -> 16x16
+        self.conv3 = HalfConv(2*f, 4*f, spec_norm=False, batch_norm=True, activation=Swish())    # 16x16 -> 8x8
+        self.conv4 = HalfConv(4*f, 8*f, spec_norm=False, batch_norm=True, activation=Swish())    #   8x8 -> 4x4
+        self.conv5 = HalfConv(8*f,16*f, spec_norm=False, batch_norm=True, activation=Swish())    #   4x4 -> 2x2
         
         self.fc = LinearBatchNorm(2*2*16*f, intermediate_size, Swish())
 
@@ -44,10 +44,10 @@ class Decoder(nn.Module):
         self.fc1 = LinearBatchNorm(hidden_size, intermediate_size, Swish())
         self.fc2 = LinearBatchNorm(intermediate_size, 2*2*16*f, Swish())
 
-        self.deconv1 = DoubleConvTranspose(16*f, 8*f, Swish())  # 2x2   -> 4x4
-        self.deconv2 = DoubleConvTranspose( 8*f, 4*f, Swish())  # 4x4   -> 8x8
-        self.deconv3 = DoubleConvTranspose( 4*f, 2*f, Swish())  # 8x8   -> 16x16
-        self.deconv4 = DoubleConvTranspose( 2*f,   f, Swish())  # 16x16 -> 32x32
+        self.deconv1 = DoubleConvTranspose(16*f, 8*f, batch_norm=True, activation=Swish())  # 2x2   -> 4x4
+        self.deconv2 = DoubleConvTranspose( 8*f, 4*f, batch_norm=True, activation=Swish())  # 4x4   -> 8x8
+        self.deconv3 = DoubleConvTranspose( 4*f, 2*f, batch_norm=True, activation=Swish())  # 8x8   -> 16x16
+        self.deconv4 = DoubleConvTranspose( 2*f,   f, batch_norm=True, activation=Swish())  # 16x16 -> 32x32
 
         self.conv = Conv(f, image_channels, nn.Sigmoid())
 
