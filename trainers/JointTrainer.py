@@ -49,7 +49,8 @@ class JointTrainer:
         real_b = real_b.to(DEVICE)
 
         z = torch.randn(self.batch_size, 100, 1, 1).to(DEVICE)
-        fake = self.G(z)
+        with torch.no_grad():
+            fake = self.G(z)
 
         self.optimiser_Da.zero_grad()
         self.optimiser_Db.zero_grad()
