@@ -11,6 +11,18 @@ def mean_GAN_loss_wandb(G_loss_arr, D_loss_arr, epoch):
         'Discriminator Loss': D_loss
     }, step=epoch)
 
+def mean_joint_GAN_loss_wandb(G_loss_arr, Da_loss_arr, Db_loss_arr, epoch):
+    G_loss = np.mean(G_loss_arr)
+    Da_loss = np.mean(Da_loss_arr)
+    Db_loss = np.mean(Db_loss_arr)
+
+    wandb.log({
+        'Generator Loss': G_loss,
+        'Discriminator A Loss': Da_loss,
+        'Discriminator B Loss': Db_loss,
+    }, step=epoch)
+
+
 def VAE_loss_wandb(l1_loss_arr, kl_loss_arr, loss_arr, epoch):
     l1_loss = np.mean(l1_loss_arr)
     kl_loss = np.mean(kl_loss_arr)
