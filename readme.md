@@ -44,7 +44,7 @@ The horse discriminator will be trained on generator outputs and horse images fr
 
 Care must be taken to ensure that the training does not collapse. It is common for the discriminators to become too powerful too quickly as the generator has to generate data that can fool multiple discriminators at once.
 
-To ensure the discriminators do not learn too quickly and collapse the training process spectral normalization is applied. This ensures that the discriminators loss is K-Lipschitz - the discriminators gradients are bound by a constant K.
+To ensure the discriminators do not learn too quickly and collapse the training process spectral normalization is applied. This ensures that the discriminators loss is $k$-Lipschitz - the discriminators gradients are bound by a constant $k$.
 
 ## Results
 ![Sample images](./img/sample_images.png)
