@@ -13,12 +13,12 @@ The GAN allows a generator network to be trained to sample realistic samples fro
 
 $$\min_G \max_D V(D,G) =\mathbb{E}_{x\sim p_{data}(x)}[\log D(x)]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D(G(z)))]$$
 
-Where the discriminator network $D$. learns to estimate $p_{data}$, while the generator network learns produce samples from the data distribution given some random noise vector $z\sim p_{z}$.
+Where the discriminator network $D$ learns to estimate $p_{data}$, while the generator network learns produce samples from the data distribution given some random noise vector $z\sim p_{z}$.
 
 
 ### Generating samples from a joint distribution
 
-JointGAN allows for a generator network to be adversarially trained to sample images from some joint distribution $p\left(\bigcap_{c_i\in C}c_i\right)$ using samples from the constituent marginal distributions $p\left(c_i\right)$.
+JointGAN allows for a generator network to be adversarially trained to sample from some joint distribution $p\left(\bigcap_{c_i\in C}c_i\right)$ using samples from the constituent marginal distributions $p\left(c_i\right)$.
 
 This is achieved by using $|C|$. discriminator networks, where the discriminator $D_i$ predicts $p\left(c_i\right)$.
 
