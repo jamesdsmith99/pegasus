@@ -20,7 +20,7 @@ Where the discriminator network $D$ learns to estimate $p_{data}$, while the gen
 
 JointGAN allows for a generator network to be adversarially trained to sample from some joint distribution $p\left(\bigcap_{c_i\in C}c_i\right)$ using samples from the constituent marginal distributions $p\left(c_i\right)$.
 
-This is achieved by using $|C|$. discriminator networks, where the discriminator $D_i$ predicts $p\left(c_i\right)$.
+This is achieved by using $|C|$ discriminator networks, where the discriminator $D_i$ predicts $p\left(c_i\right)$.
 
 We can define the class loss as:
 
