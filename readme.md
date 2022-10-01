@@ -9,7 +9,7 @@ It can be interpreted that a pegasus is a creature that is a mixture of horse an
 ## JointGAN
 
 ### GAN
-The GAN allows a generator network to be trained to map noise to realistic samples from some data distribution. GANs can learn to do this sampling without having to estimate the density function of the distribution. This is done by training two networks playing an adversarial mini-max game:
+The GAN allows a generator network to be trained to map noise to realistic samples from some data distribution. GANs can learn to do this sampling without having to explicitly evaluate the density function of the distribution. This is done by training two networks playing a mini-max game:
 
 $$\min_G \max_D V(D,G) =\mathbb{E}_{x\sim p_{data}(x)}[\log D(x)]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D(G(z)))]$$
 
@@ -18,9 +18,9 @@ Where the discriminator network $D$ learns to estimate $p_{data}$, while the gen
 
 ### Generating samples from a joint distribution
 
-JointGAN allows for a generator network to be adversarially trained to sample from some joint distribution $p\left(\bigcap_{c_i\in C}c_i\right)$ using samples from the constituent marginal distributions $p\left(c_i\right)$.
+JointGAN allows for a generator network to be adversarially trained to sample from some joint distribution $p\left(\bigcap_{c_i\in C}c_i\right)$ using samples from the constituent marginal distributions $p\left(c_i\right)$ -- these marginal distributions can represent classes of images.
 
-This is achieved by using $|C|$ discriminator networks, where the discriminator $D_i$ predicts $p\left(c_i\right)$.
+This is achieved by using $|C|$ discriminator networks, where the discriminator $D_i$ predicts the probability of a datum originating from one of the marginal distributions $p\left(c_i\right)$.
 
 We can define the class loss as:
 
@@ -34,9 +34,9 @@ This loss allows for the generator to sample from the joint distribution assumin
 
 ## Using JointGAN to generate Pegasus images
 
-The dataset contains images of both birds and horses. We can use JointGAN to train the generator to sample from $p(H \cap B)$.
+The dataset contains sets of images of both birds $B$ and horses $H$. We can use JointGAN to train the generator to sample from $p(H \cap B)$.
 
-The horse discriminator will be trained on generator outputs and horse images from the dataset. The bird discriminator wil be trained on the generator outputs and bird images from the dataset.
+The horse discriminator will be trained on generator outputs and horse images from the dataset. The bird discriminator will be trained on the generator outputs and bird images from the dataset.
 
 ![Architecture diagram](./img/architecture.png)
 
@@ -48,4 +48,3 @@ To ensure the discriminators do not learn too quickly and collapse the training 
 
 ## Results
 ![Sample images](./img/sample_images.png)
-
