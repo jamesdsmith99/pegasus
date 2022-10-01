@@ -9,7 +9,7 @@ It can be interpreted that a pegasus is a creature that is a mixture of horse an
 ## JointGAN
 
 ### GAN
-The GAN allows a generator network to be trained to map noise to realistic samples from the data distribution. GANs can learn to do this sampling without having to estimate the density function of the distribution. This is done by training two networks playing an adversarial mini-max game:
+The GAN allows a generator network to be trained to map noise to realistic samples from some data distribution. GANs can learn to do this sampling without having to estimate the density function of the distribution. This is done by training two networks playing an adversarial mini-max game:
 
 $$\min_G \max_D V(D,G) =\mathbb{E}_{x\sim p_{data}(x)}[\log D(x)]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D(G(z)))]$$
 
