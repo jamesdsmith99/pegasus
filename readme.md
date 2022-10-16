@@ -24,7 +24,7 @@ This is achieved by using $|C|$ discriminator networks, where the discriminator 
 
 We can define the class loss as:
 
-$$L_c = \mathbb{E}_{x\sim p_{c}(x)}[\log D(x)]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D_c(G(z)))]$$
+$$L_c = \mathbb{E}_{x\sim p_c(x)}[\log D(x)]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D_c(G(z)))]$$
 
 Then JointGAN can be trained on the objective:
 
