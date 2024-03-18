@@ -11,7 +11,7 @@ It can be interpreted that a pegasus is a creature that is a mixture of horse an
 ### GAN
 The GAN allows a generator network to be trained to map noise to realistic samples from some data distribution. GANs can learn to do this sampling without having to explicitly evaluate the density function of the distribution. This is done by training two networks playing a mini-max game:
 
-$$\min_G \max_D V(D,G) =\mathbb{E}_{x\sim p_{data}(x)}[\log D(x)]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D(G(z)))]$$
+$$\min_G \max_D V(D,G) =E_{x\sim p_{data}(x)}[\log D(x)]+E_{z\sim p_z(z)}[\log(1-D(G(z)))]$$
 
 Where the discriminator network $D$ learns to estimate $p_{data}$, while the generator network learns produce samples from the data distribution given some random noise vector $z\sim p_{z}$.
 
@@ -24,7 +24,7 @@ This is achieved by using $|C|$ discriminator networks, where the discriminator 
 
 We can define the class loss as:
 
-$$L_c = \mathbb{E}_{x\sim p_c(x)}[\log D(x)]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D_c(G(z)))]$$
+$$L_c = E_{x\sim p_c(x)}[\log D(x)]+E_{z\sim p_z(z)}[\log(1-D_c(G(z)))]$$
 
 Then JointGAN can be trained on the objective:
 
